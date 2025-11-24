@@ -6,10 +6,30 @@ let filteredTransactions;
 let editTransactionId = null; 
 let settings = {};
 let transactions = [];
+const DEPLOYED_API_URL = 'https://finance-tracker-elua.onrender.com';
+const LOCAL_API_URL = 'http://localhost:5002';
+
+async function smartFetch(path, options) {
+    // Deployed API attempt
+    try {
+        const res = await fetch(`${DEPLOYED_API_URL}${path}`, options);
+        if (!res.ok) throw new Error('Deployed API error');
+        return res;
+    } catch (e) {
+        // Local API attempt if deployed fails
+        try {
+            const res = await fetch(`${LOCAL_API_URL}${path}`, options);
+            if (!res.ok) throw new Error('Local API error');
+            return res;
+        } catch (err) {
+            throw new Error('Both APIs failed');
+        }
+    }
+}
 
 async function loadCategories() {
     try {
-        const response = await fetch("http://localhost:5002/categories");
+        const response = await smartFetch('/categories');
         if (!response.ok) {
             throw new Error("Failed to fetch categories");
         }
@@ -61,7 +81,7 @@ async function loadCategories() {
 document.addEventListener("DOMContentLoaded", loadCategories);
 async function loadFromDataBase() {
     try {
-        const response = await fetch('http://localhost:5002/transactions');
+        const response = await smartFetch('/transactions');
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
@@ -199,7 +219,7 @@ async function addButton() {
 
         
 
-        const response = await fetch('http://localhost:5002/transactions', {
+        const response = await smartFetch('/transactions', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -245,7 +265,7 @@ async function confirmEdit() {
 
         const amount = parseFloat(amountInput);
 
-        const response = await fetch(`http://localhost:5002/transactions/${editTransactionId}`, {
+        const response = await smartFetch(`/transactions/${editTransactionId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -268,7 +288,7 @@ async function confirmEdit() {
         if (index !== -1) {
             transactions[index] = json.data;
         }
-        const refreshResponse = await fetch('http://localhost:5002/transactions');
+        const refreshResponse = await smartFetch('/transactions');
         if (!refreshResponse.ok) {
             throw new Error(`Response status: ${refreshResponse.status}`);
         }
@@ -313,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const confirmDelete = confirm(confirmMessage);
             if (!confirmDelete) return;
     
-            const response = await fetch("http://localhost:5002/transactions", {
+            const response = await smartFetch('/transactions', {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ids }),
@@ -371,7 +391,7 @@ async function masterFilter() {
     if (amount !== "ignore") {
         try {
             const sort = amount === "ascAmount" ? "asc" : "desc";
-            const response = await fetch(`http://localhost:5002/transactions?sort=${sort}`);
+            const response = await smartFetch(`/transactions?sort=${sort}`);
             if (!response.ok) {
                 throw new Error("Failed to fetch sorted transactions");
             }
@@ -409,7 +429,7 @@ async function darkModeFunction() {
             element.classList.remove("darkmode");
         }
 
-        const response = await fetch('http://localhost:5002/settings', {
+        const response = await smartFetch('/settings', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ darkMode }),
@@ -432,7 +452,7 @@ async function darkModeFunction() {
 async function loadDarkMode() {
     try {
         const element = document.getElementById("body");
-        const response = await fetch('http://localhost:5002/settings');
+        const response = await smartFetch('/settings');
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         }
