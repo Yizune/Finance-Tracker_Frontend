@@ -6,7 +6,7 @@ let filteredTransactions;
 let editTransactionId = null; 
 let settings = {};
 let transactions = [];
-const DEPLOYED_API_URL = 'https://finance-tracker-backend-rho.vercel.app/';
+const DEPLOYED_API_URL = 'https://finance-tracker-backend-rho.vercel.app';
 const LOCAL_API_URL = 'http://localhost:5002';
 
 async function smartFetch(path, options) {
