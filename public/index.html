@@ -27,7 +27,7 @@
 
   <div class="header container">
     <div class="header-text">
-      <h1>Personal Finance Tracker</h1>
+      <h1>Finance Tracker</h1>
     </div>
     <div class="mode-icon">
       <button id="theme-switch" onclick="darkModeFunction()">
@@ -44,30 +44,31 @@
   </div>
 
   <div class="filters buttons container">
-    <div class="search-filter">
-      <div class="input-wrapper">
-        <img src="Images/search_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" alt="search icon" class="search-icon">
-        <input class="input" placeholder="Search transactions...">
+    <div class="filter-controls-row">
+      <div class="search-filter">
+        <div class="input-wrapper">
+          <img src="Images/search_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" alt="search icon" class="search-icon">
+          <input class="input" placeholder="Search transactions...">
+        </div>
+      </div>
+      <div class="category-filter">
+        <select name="type" id="type">
+          <option value="ignore">Search by Type</option>
+          <option value="Expenses">Expense</option>
+          <option value="Income">Income</option>
+        </select>
+      
+        <select name="categories" id="categories">
+          <!-- It's being populated in the scipt.js -->
+        </select>
+      
+        <select name="amount" id="amount">
+          <option value="ignore">Filter Options</option>
+          <option value="ascAmount">Sort by Ascending Amount</option>
+          <option value="descAmount">Sort by Descending Amount</option>
+        </select>
       </div>
     </div>
-    <div class="category-filter">
-      <select name="type" id="type">
-        <option value="ignore">Search by Type</option>
-        <option value="Expenses">Expense</option>
-        <option value="Income">Income</option>
-      </select>
-    
-      <select name="categories" id="categories">
-        <!-- It's being populated in the scipt.js -->
-      </select>
-    
-      <select name="amount" id="amount">
-        <option value="ignore">Filter Options</option>
-        <option value="ascAmount">Sort by Ascending Amount</option>
-        <option value="descAmount">Sort by Descending Amount</option>
-      </select>
-    </div>
-    
     <div class="filter-buttons">
       <div class="clear">
         <button class="disabled" id="clearBtn">Clear All</button>
