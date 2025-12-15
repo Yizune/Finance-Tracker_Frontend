@@ -367,44 +367,22 @@ body {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.buttons .filter-buttons button:hover:not(.disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-.buttons .filter-buttons button.disabled {
-  opacity: 0.5;
-  pointer-events: none;
-  cursor: not-allowed;
-}
 .buttons .filter-buttons .clear button {
   background-color: hsl(0, 0%, 100%);
   color: hsl(215, 25%, 12%);
   border: 1px solid hsl(214, 20%, 88%);
 }
-.buttons .filter-buttons .clear button:hover:not(.disabled) {
-  background-color: hsl(215, 25%, 12%);
-  color: hsl(210, 20%, 98%);
-}
 .buttons .filter-buttons .add-selected button {
   background-color: hsl(160, 84%, 39%);
   color: white;
-}
-.buttons .filter-buttons .add-selected button:hover:not(.disabled) {
-  background-color: hsl(160, 84%, 45%);
 }
 .buttons .filter-buttons .remove-selected button {
   background-color: hsl(0, 85%, 60%);
   color: white;
 }
-.buttons .filter-buttons .remove-selected button:hover:not(.disabled) {
-  background-color: hsl(0, 85%, 65%);
-}
 .buttons .filter-buttons .edit-selected button {
   background-color: hsl(220, 90%, 56%);
   color: white;
-}
-.buttons .filter-buttons .edit-selected button:hover:not(.disabled) {
-  background-color: hsl(220, 90%, 60%);
 }
 
 .tableOne {
@@ -623,6 +601,26 @@ body {
 #editTransactionForm,
 #removeTransactionForm {
   display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .buttons .filter-buttons button:hover:not(.disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  .buttons .filter-buttons .clear button:hover:not(.disabled) {
+    background-color: hsl(215, 25%, 12%);
+    color: hsl(210, 20%, 98%);
+  }
+  .buttons .filter-buttons .add-selected button:hover:not(.disabled) {
+    background-color: hsl(160, 84%, 45%);
+  }
+  .buttons .filter-buttons .remove-selected button:hover:not(.disabled) {
+    background-color: hsl(0, 85%, 65%);
+  }
+  .buttons .filter-buttons .edit-selected button:hover:not(.disabled) {
+    background-color: hsl(220, 90%, 60%);
+  }
 }
 
 @media (max-width: 1500px) {
